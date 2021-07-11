@@ -20,9 +20,9 @@ public class DogService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	static final String ALL_BREED_LIST_URL 		= "https://dog.ceo/api/breeds/list/all";
-	static final String BREED_IMAGE_URL 		=  "https://dog.ceo/api/breed/{breed}/images";
-	static final String BREED_LIST_URL 			=  "https://dog.ceo/api/breed/{breed}/list";
+	public static final String ALL_BREED_LIST_URL 	= "https://dog.ceo/api/breeds/list/all";
+	public static final String BREED_IMAGE_URL 		=  "https://dog.ceo/api/breed/{breed}/images";
+	public static final String BREED_LIST_URL 		=  "https://dog.ceo/api/breed/{breed}/list";
 
 	
 	private DogResponse allBreeds() throws RestClientException, URISyntaxException {

@@ -33,7 +33,7 @@ public class EmployeeService {
 	@Autowired
 	private SalaryRepository salaryRepository; 
 
-	public void insert(EmployeeModel employeeModel) {
+	public EmployeeModel insert(EmployeeModel employeeModel) {
 		log.info("insert data : {}", employeeModel);
 		
 		employeeModel.setId(null);
@@ -52,6 +52,8 @@ public class EmployeeService {
 			tx.commit();
 			
 			log.info("Success inserting data");
+			employee.setSalary(salary);
+			return employee.toModel();
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (null != tx) {
@@ -126,7 +128,7 @@ public class EmployeeService {
 		return null;
 	}
 
-	public void deleteById(int id) {
+	public boolean deleteById(int id) {
 		Transaction tx = null;
 		Session s = sessionFactory.openSession();
 		try {
@@ -139,6 +141,7 @@ public class EmployeeService {
 			s.delete(salary);
 
 			tx.commit();
+			return true;
 		} catch (Exception e) {
 			if (null != tx) {
 				tx.rollback();
@@ -151,7 +154,7 @@ public class EmployeeService {
 		}
 	}
 
-	public void update(int id, EmployeeModel model) {
+	public EmployeeModel update(int id, EmployeeModel model) {
 		
 		Transaction tx = null;
 		Session s = sessionFactory.openSession();
@@ -174,6 +177,9 @@ public class EmployeeService {
 			s.merge(salary);
 
 			tx.commit();
+			
+			employee.setSalary(salary);
+			return employee.toModel();
 		} catch (Exception e) {
 			if (null != tx) {
 				tx.rollback();
